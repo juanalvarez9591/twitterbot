@@ -1,6 +1,7 @@
 import os
 import tweepy
 import requests
+import datetime
 
 APIKEY = os.environ.get('apikey')
 APIKEYSECRET = os.environ.get('apikeysecret')
@@ -22,5 +23,7 @@ try:
 except:
     print('Failed authentication')
 
-if indirecta.status_code == 200:
+last_tweet = api.user_timeline(count=1)[0].created_at
+
+if (last_tweet - datetime.datetime.utcnow()).total_seconds() > 21600 and indirecta.status_code == 200:
     api.update_status(indirecta.text)
