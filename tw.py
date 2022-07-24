@@ -25,5 +25,5 @@ except:
 
 last_tweet = api.user_timeline(count=1)[0].created_at
 
-if (last_tweet - datetime.datetime.utcnow()).total_seconds() > 21600 and indirecta.status_code == 200:
+if (last_tweet.replace(tzinfo=None) - datetime.datetime.utcnow()).total_seconds() > 21600 and indirecta.status_code == 200:
     api.update_status(indirecta.text)
